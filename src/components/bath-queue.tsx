@@ -21,7 +21,7 @@ const dailyRank = [
 
 export default function BathQueue() {
     return (
-        <div className="w-full text-center">
+        <div className="w-full text-center min-h-96">
             <div className="flex items-center justify-center gap-4">
                 <div className="w-1/2">
                     {users.map((currentUser, index) => {

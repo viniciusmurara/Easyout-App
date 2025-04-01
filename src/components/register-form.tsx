@@ -21,7 +21,7 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
   }
 
   if (loading) {
-    return <div className="text-center">Loading...</div>
+    return <div className="text-center">Carregando...</div>
   }
 
   if (user) {
@@ -37,9 +37,9 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
               <div className="flex items-center justify-center rounded-md">
                 <Toilet className="size-10" />
               </div>
-              <span className="sr-only">BathQueue</span>
+              <span className="sr-only">Easyout App</span>
             </div>
-            <h1 className="text-xl font-bold">Welcome to BathQueue</h1>
+            <h1 className="text-xl font-bold">Register on Easyout App</h1>
             <div className="text-center text-sm">
               Already have an account?{" "}
               <a href="/login" className="underline underline-offset-4 hover:text-blue-500">

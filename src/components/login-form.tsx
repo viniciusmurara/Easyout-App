@@ -38,9 +38,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               <div className="flex items-center justify-center rounded-md">
                 <Toilet className="size-10" />
               </div>
-              <span className="sr-only">BathQueue</span>
+              <span className="sr-only">Easyout App</span>
             </div>
-            <h1 className="text-xl font-bold">Welcome to BathQueue</h1>
+            <h1 className="text-xl font-bold">Login to Easyout App</h1>
             <div className="text-center text-sm">
               Don&apos;t have an account?{" "}
               <a href="/register" className="underline underline-offset-4 hover:text-blue-500">

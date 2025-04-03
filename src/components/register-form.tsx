@@ -5,23 +5,44 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
-import { auth } from "@/services/firebaseConfig"
 import { useState } from "react"
 import { useRouter } from 'next/navigation';
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "@/services/firebaseConfig";
 
-export function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
+export default function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth)
   const router = useRouter();
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    createUserWithEmailAndPassword(email, password)
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(email, password);
+
+      if (userCredential?.user) {
+        // Criar documento do usuário no Firestore
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          name: email.split('@')[0], // Pega o nome do email como exemplo
+          email: email,
+          createdAt: new Date(),
+        });
+
+        router.push('/');
+      }
+    } catch (error) {
+      console.error("Erro no registro:", error);
+    }
   }
 
   if (loading) {
-    return <div className="text-center">Carregando...</div>
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p>Carregando...</p>
+      </div>
+    )
   }
 
   if (user) {

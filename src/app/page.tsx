@@ -1,15 +1,16 @@
-import BathQueue from "@/components/bath-queue";
+import MainQueue from "@/components/main-queue";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import AuthGuard from "@/components/auth-guard";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-svh items-center justify-between">
-      <Header />
-
-      <BathQueue />
-
-      <Footer />
-    </div>
+    <AuthGuard>
+      <div className="flex flex-col min-h-svh items-center justify-between">
+        <Header />
+        <MainQueue />
+        <Footer />
+      </div>
+    </AuthGuard>
   )
 }

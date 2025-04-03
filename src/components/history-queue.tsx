@@ -1,14 +1,14 @@
 import { Toilet, User } from "lucide-react"
 
-interface UserProps {
+interface HistoryQueueProps {
     name: string
-    exits: number
+    status: string
     rounded: "top" | "bottom" | "none"
     className?: string
     first: boolean
 }
 
-export default function RankQueue({ name, exits, rounded, className, first }: UserProps) {
+export default function HistoryQueue({ name, status, rounded, className, first }: HistoryQueueProps) {
     return (
         <div className={`flex items-center justify-between py-4 px-4 ${className}
             ${rounded === "top" ? "rounded-t-2xl" : rounded === "bottom" ? "rounded-b-2xl" : ""}`}
@@ -26,7 +26,11 @@ export default function RankQueue({ name, exits, rounded, className, first }: Us
                 </div>
                 <div className="space-y-0.5">
                     <h1 className="text-zinc-800">{name}</h1>
-                    <p className="text-xs text-zinc-500">{exits} {exits > 1 ? "saídas" : "saída"}  de sala</p>
+                    {first ? (
+                        <p className="text-xs text-zinc-500">Está fora no momento...</p>
+                    ) : (
+                        <p className="text-xs text-zinc-500">Última saída {status}</p>
+                    )}
                 </div>
             </div>
         </div>

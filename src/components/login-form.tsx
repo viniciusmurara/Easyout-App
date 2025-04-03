@@ -9,7 +9,7 @@ import { auth } from "@/services/firebaseConfig"
 import { useState } from "react"
 import { useRouter } from 'next/navigation';
 
-export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);

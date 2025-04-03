@@ -20,10 +20,10 @@ export default function MainQueue() {
     const [user] = useAuthState(auth)
 
     const handleJoinQueue = async () => {
-        if (!user) return
+        if (!user) return;
 
         try {
-            await addDoc(collection(db, "queues"), {
+            const queueRef = await addDoc(collection(db, "queues"), {
                 userId: user.uid,
                 userName: user.displayName || user.email?.split('@')[0],
                 status: "waiting",
@@ -36,10 +36,11 @@ export default function MainQueue() {
                 timestamp: serverTimestamp()
             });
 
-        } catch (error) {
-            console.error("Erro ao entrar na fila:", error);
+        } catch (error: any) {
+            console.error("Erro detalhado:", error);
+            alert(`Erro ao entrar na fila: ${error.message}`);
         }
-    }
+    };
 
     const [queuesSnapshot] = useCollection(
         query(

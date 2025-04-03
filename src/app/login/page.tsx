@@ -11,10 +11,10 @@ export default function LoginPage() {
   const router = useRouter()
 
   useEffect(() => {
-    if (user) {
+    if (!loading && user) {
       router.push('/')
     }
-  }, [user, router])
+  }, [user, loading, router])
 
   if (loading) {
     return <div className="text-center">Carregando...</div>

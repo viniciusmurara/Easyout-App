@@ -1,19 +1,25 @@
+// components/auth-guard.tsx
 'use client'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/services/firebaseConfig'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import Loading from '@/components/loading'
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
-  const [user] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth)
   const router = useRouter()
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       router.push('/login')
     }
-  }, [user, , router])
+  }, [user, loading, router])
+
+  if (loading) {
+    return <Loading /> // Componente de loading
+  }
 
   return user ? children : null
 }

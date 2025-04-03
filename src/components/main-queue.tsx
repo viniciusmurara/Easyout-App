@@ -68,7 +68,7 @@ export default function MainQueue() {
                             <UserQueue
                                 key={doc.id}
                                 name={data.userName}
-                                status={data.createdAt?.toDate().toLocaleTimeString()}
+                                status={data.createdAt ? data.createdAt.toDate().toLocaleTimeString('pt-BR') : 'Carregando...'}
                                 className={index % 2 === 0 ? "bg-zinc-300" : "bg-zinc-200"}
                                 rounded={index === 0 ? "top" : index === queuesSnapshot.docs.length - 1 ? "bottom" : "none"}
                             />

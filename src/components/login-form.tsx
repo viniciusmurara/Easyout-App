@@ -47,7 +47,7 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                 Sign up
               </a>
             </div>
-            {error && <p className="text-red-500 text-sm">{error.message}</p>}
+            {error && <p className="text-red-500 text-sm">Erro ao validar credenciais</p>}
           </div>
           <div className="flex flex-col gap-6">
             <div className="grid gap-3">

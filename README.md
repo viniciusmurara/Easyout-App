@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚽 Easyout - A "Número 1" em Gestão de Banheiros Acadêmicos
 
-## Getting Started
+Este projeto surgiu de uma maneira cômica no programa de aprendizagem que participei! Durante uma das aula um dos professores comentou que não deveriamos mais pedir a ele para ir ao banheiro, e sim, simplesmente ir, porem deveriamos ir somente um de cada vez. Mas estávamos com dificuldade de nos organizar, e então resolvi criar este sistema de gerenciamento de filas. 
 
-First, run the development server:
+## 🎯 Objetivo
+Resolver o problema de gestão de acesso ao banheiro em salas de aula, permitindo:
+- Controle automático de filas
+- Histórico de utilização
+- Notificações em tempo real
+- Sistema de autenticação seguro
+
+## ✨ Funcionalidades Principais
+- **Autenticação Segura**:
+  - Login com Email/Senha
+  - Cadastro de novos usuários
+  - Integração com Firebase Authentication
+  
+- **Sistema de Filas**:
+  - Fila de espera em tempo real
+  - Histórico das últimas 5 utilizações
+  - Notificação automática quando é a vez do usuário
+  - Confirmação de retorno do banheiro
+
+- **Interface Intuitiva**:
+  - Visualização clara da posição na fila
+  - Temporização de uso
+  - Botão para sair da fila
+  - Sinalização de retorno à sala
+
+## 🛠️ Tecnologias Utilizadas
+- **Frontend**:
+  - Next.js (App Router)
+  - Tailwind CSS
+  - Shadcn/ui
+  - React Firebase Hooks
+
+- **Backend**:
+  - Firebase Authentication
+  - Firestore Database
+  - Cloud Functions (implícito)
+
+- **Outras Bibliotecas**:
+  - Lucide React Icons
+  - date-fns para manipulação de datas
+ 
+## 🖥️ Estrutura Principal do Projeto
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+src/
+├── components/
+│   ├── auth-guard.tsx      # Componente de proteção de rotas
+|   ├── footer.tsx          # Rodapé da aplicação
+│   ├── header.tsx          # Cabeçalho da aplicação
+│   ├── history-queue.tsx   # Componente do histórico
+│   ├── login-form.tsx      # Formulário de login
+│   ├── main-queue.tsx      # Tela principal de filas
+|   ├── register-form.tsx   # Formulário de cadastro
+│   └── user-queue.tsx      # Item da fila de espera
+├── services/
+│   └── firebaseConfig.ts   # Configuração do Firebase
+└── app/
+    ├── login/page.tsx      # Página de login
+    ├── register/page.tsx   # Página de registro
+    └── page.tsx            # Página principal
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📝 Fluxo de Uso
+- **Autenticação**:
+  - Novo usuário: Cadastro com email/senha
+  - Usuário existente: Login tradicional ou com Google
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Gestão de Filas**:
+  - Entrar na fila: Adiciona usuário à fila de espera
+  - Sua vez chegou!: Modal aparece automaticamente
+  - Confirmar: Registra retorno do banheiro e atualiza histórico
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Gestão de Histórico**:
+  - Mantém últimos 5 registros
+  - Exibe horário de retorno
+  - Atualização em tempo real

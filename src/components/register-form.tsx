@@ -85,7 +85,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                   type={isSeeingPassword ? "text" : "password"}
                   placeholder="***********"
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pr-10" // Espaço para o ícone
+                  className="pr-10"
                   required
                 />
                 <Button

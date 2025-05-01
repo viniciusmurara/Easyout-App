@@ -5,10 +5,9 @@ interface HistoryQueueProps {
     status: string
     rounded: "top" | "bottom" | "none"
     className?: string
-    first: boolean
 }
 
-export default function HistoryQueue({ name, status, rounded, className, first }: HistoryQueueProps) {
+export default function HistoryQueue({ name, status, rounded, className }: HistoryQueueProps) {
     return (
         <div className={`flex items-center justify-between py-4 px-4 ${className}
             ${rounded === "top" ? "rounded-t-2xl" : rounded === "bottom" ? "rounded-b-2xl" : ""}`}

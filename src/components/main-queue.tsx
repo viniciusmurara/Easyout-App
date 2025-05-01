@@ -108,7 +108,7 @@ export default function MainQueue() {
 
                     <div className="grid gap-4 pt-4">
                         <p className="text-sm text-muted-foreground">
-                            Pressione "Confirmar" somente quando voltar do banheiro
+                            Pressione Confirmar somente quando voltar do banheiro
                         </p>
 
                         <Button
@@ -154,7 +154,6 @@ export default function MainQueue() {
                             <HistoryQueue
                                 key={index}
                                 name={currentRank.name}
-                                first={index === 0}
                                 status={currentRank.status}
                                 className={index % 2 === 0 ? "bg-zinc-300" : "bg-zinc-200"}
                                 rounded={dailyHistory.indexOf(currentRank) === 0 ? "top"

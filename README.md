@@ -67,7 +67,7 @@ src/
 ## 📝 Fluxo de Uso
 - **Autenticação**:
   - Novo usuário: Cadastro com email/senha
-  - Usuário existente: Login tradicional ou com Google
+  - Usuário existente: Login tradicional
 
 - **Gestão de Filas**:
   - Entrar na fila: Adiciona usuário à fila de espera

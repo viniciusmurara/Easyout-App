@@ -1,5 +1,5 @@
 'use client'
-import { Toilet } from "lucide-react"
+import { Toilet, Eye, EyeOff } from "lucide-react" // icones que vou usar para visualização da senha
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -8,18 +8,20 @@ import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from "@/services/firebaseConfig"
 import { useState, useEffect } from "react"
 import { useRouter } from 'next/navigation';
+import Loading from "./loading"
 
 export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+  const [isSeeingPassword, setIsSeeingPassword] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (user) {
       router.push('/');
     }
-  }, [user]);
+  }, [user, router]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -27,7 +29,7 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
   }
 
   if (loading) {
-    return <div className="text-center">Loading...</div>
+    return <Loading />
   }
 
   return (
@@ -61,13 +63,29 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                 required
               />
               <Label htmlFor="password" className="pt-2">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="***********"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={isSeeingPassword ? "text" : "password"}
+                  placeholder="***********"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pr-10"
+                  required
+                />
+                <Button
+                  type="button"
+                  size="sm"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#09090B] hover:bg-[#09090B]"
+                  onClick={() => setIsSeeingPassword(!isSeeingPassword)}
+                  aria-label={isSeeingPassword ? "Hide password" : "Show password"}
+                >
+                  {isSeeingPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
             </div>
             <Button type="submit" className="w-full">
               Login

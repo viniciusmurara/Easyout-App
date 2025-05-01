@@ -45,7 +45,7 @@ export default function UserQueue({ name, status, rounded, className, queueUserI
                 {first ? (
                     <p className="text-xs text-zinc-500">Está fora no momento...</p>
                 ) : (
-                    <p className="text-xs text-zinc-500">Última saída {status}</p>
+                    <p className="text-xs text-zinc-500">Entrou às {status}</p>
                 )}
             </div>
 

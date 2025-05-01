@@ -1,20 +1,28 @@
 'use client'
-import { Toilet } from "lucide-react"
+import { Toilet, Eye, EyeOff } from "lucide-react" // Adicione os ícones de visualização
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from 'next/navigation';
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "@/services/firebaseConfig";
+import Loading from "./loading"
 
 export default function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth)
+  const [isSeeingPassword, setIsSeeingPassword] = useState(false) // Estado para controlar a visibilidade
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -23,9 +31,8 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
       const userCredential = await createUserWithEmailAndPassword(email, password);
 
       if (userCredential?.user) {
-        // Criar documento do usuário no Firestore
         await setDoc(doc(db, "users", userCredential.user.uid), {
-          name: email.split('@')[0], // Pega o nome do email como exemplo
+          name: email.split('@')[0],
           email: email,
           createdAt: new Date(),
         });
@@ -38,15 +45,7 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p>Carregando...</p>
-      </div>
-    )
-  }
-
-  if (user) {
-    router.push('/');
+    return <Loading />
   }
 
   return (
@@ -80,13 +79,29 @@ export default function RegisterForm({ className, ...props }: React.ComponentPro
                 required
               />
               <Label htmlFor="password" className="pt-2">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="***********"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={isSeeingPassword ? "text" : "password"}
+                  placeholder="***********"
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pr-10" // Espaço para o ícone
+                  required
+                />
+                <Button
+                  type="button"
+                  size="sm"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#09090B] hover:bg-[#09090B]"
+                  onClick={() => setIsSeeingPassword(!isSeeingPassword)}
+                  aria-label={isSeeingPassword ? "Hide password" : "Show password"}
+                >
+                  {isSeeingPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </Button>
+              </div>
             </div>
             <Button type="submit" className="w-full">
               Register

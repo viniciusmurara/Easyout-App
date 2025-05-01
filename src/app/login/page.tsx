@@ -5,6 +5,7 @@ import { auth } from '@/services/firebaseConfig'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import LoginForm from '@/components/login-form'
+import Loading from '@/components/loading'
 
 export default function LoginPage() {
   const [user, loading] = useAuthState(auth)
@@ -17,7 +18,7 @@ export default function LoginPage() {
   }, [user, loading, router])
 
   if (loading) {
-    return <div className="text-center">Carregando...</div>
+    return <Loading />
   }
 
   return (

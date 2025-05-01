@@ -1,4 +1,4 @@
-import { Toilet, User } from "lucide-react"
+import { User } from "lucide-react"
 
 interface HistoryQueueProps {
     name: string
@@ -14,23 +14,14 @@ export default function HistoryQueue({ name, status, rounded, className, first }
             ${rounded === "top" ? "rounded-t-2xl" : rounded === "bottom" ? "rounded-b-2xl" : ""}`}
         >
             <div className="flex items-center text-start  gap-4">
-                <div className="relative flex items-center justify-center px-4 bg-zinc-700 h-10 w-10 rounded-full">
+                <div className="flex items-center justify-center px-4 bg-zinc-700 h-10 w-10 rounded-full">
                     <div>
                         <User />
                     </div>
-                    {first && (
-                        <div className="absolute flex items-center justify-center -bottom-1 -right-2 h-6 w-6 bg-zinc-500 rounded-full">
-                            <Toilet size={15} className="text-zinc-100" />
-                        </div>
-                    )}
                 </div>
                 <div className="space-y-0.5">
                     <h1 className="text-zinc-800">{name}</h1>
-                    {first ? (
-                        <p className="text-xs text-zinc-500">Está fora no momento...</p>
-                    ) : (
-                        <p className="text-xs text-zinc-500">Última saída {status}</p>
-                    )}
+                    <p className="text-xs text-zinc-500">Última saída {status}</p>
                 </div>
             </div>
         </div>

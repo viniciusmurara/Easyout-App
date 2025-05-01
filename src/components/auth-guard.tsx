@@ -1,4 +1,3 @@
-// components/auth-guard.tsx
 'use client'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -18,7 +17,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   }, [user, loading, router])
 
   if (loading) {
-    return <Loading /> // Componente de loading
+    return <Loading />
   }
 
   return user ? children : null

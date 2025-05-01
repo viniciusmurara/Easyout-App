@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from "@/services/firebaseConfig"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from 'next/navigation';
 
 export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
@@ -15,6 +15,12 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
   const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
 
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user]);
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     signInWithEmailAndPassword(email, password)
@@ -22,11 +28,6 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
 
   if (loading) {
     return <div className="text-center">Loading...</div>
-  }
-
-  if (user) {
-    router.push('/');
-    console.log("User signed in:", user);
   }
 
   return (
